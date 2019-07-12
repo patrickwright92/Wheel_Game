@@ -39,6 +39,7 @@ public class SimpleTestClient
       Validator.validate(true);
 
       // create some test players
+      //test comment
       Player[] players = new Player[] { new SimplePlayer("1", "Come In Spinner", 1000),
          new SimplePlayer("2", "The Loser", 750), new SimplePlayer("3", "The Dabbler", 500) };
 
