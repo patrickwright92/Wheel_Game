@@ -29,10 +29,17 @@ public class GameEngineImpl implements GameEngine {
 
 	@Override
 	public void spin(int initialDelay, int finalDelay, int delayIncrement) {
-		//initialDelay is 1 in milliseconds
-		//finalDelay is 100
-		//delayIncrement is 5
-		//start console update at 1 - then 6 - 11 - 16 and so on until 100
+		
+		for(int i = initialDelay; i <= finalDelay+1; i+=delayIncrement) {
+			// debug code System.out.println(i);
+			//delay goes to 101 at the moment
+			try {
+				Thread.sleep(i);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	
 		
 	}
 
