@@ -18,7 +18,7 @@ public class GameEngineImpl implements GameEngine {
 	
 	public GameEngineImpl() {
 		
-		
+		//TODO returning hex because I do not have a toString method
 	}
 	 
 	
