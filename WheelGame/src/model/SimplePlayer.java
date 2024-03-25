@@ -74,4 +74,10 @@ public class SimplePlayer implements Player {
 		this.betType = null;
 
 	}
+
+	@Override
+	public String toString()
+	{
+		return String.format("Player: id=%s, name=%s, betAmount=%s, betType=%s, points=%s", playerId, playerName, betAmount, betType, points);
+	}
 }

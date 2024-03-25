@@ -4,6 +4,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import model.interfaces.GameEngine;
+import model.interfaces.Player;
 import model.interfaces.Slot;
 import view.interfaces.GameEngineCallback;
 
@@ -30,14 +31,24 @@ public class GameEngineCallbackImpl implements GameEngineCallback
    {
       // intermediate results logged at Level.FINE
       logger.log(Level.FINE, "Intermediate data to log .. String.format() is good here!");
-      // call calculate result and resetBet
    }
 
    @Override
    public void result(Slot result, GameEngine engine)
    {
       // final results logged at Level.INFO
-      logger.log(Level.INFO, "Result data to log .. String.format() is good here!");
-      // TODO: complete this method to log results
+      logger.log(Level.INFO, "RESULT=" + result.toString() + "\n");
+      
+      engine.calculateResult(result);
+     
+      logger.log(Level.INFO, "FINAL PLAYER POINT BALANCES");
+      String playerInformation = "\n";
+      for (Player player: engine.getAllPlayers()) 
+      {
+    	  playerInformation += player.toString() + "\n";
+    	  player.resetBet();
+      }
+      
+      logger.log(Level.INFO,  playerInformation);
    }
 }
