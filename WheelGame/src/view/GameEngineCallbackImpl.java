@@ -30,7 +30,7 @@ public class GameEngineCallbackImpl implements GameEngineCallback
    {
       // intermediate results logged at Level.FINE
       logger.log(Level.FINE, "Intermediate data to log .. String.format() is good here!");
-      // TODO: complete this method to log intermediate results
+      // call calculate result and resetBet
    }
 
    @Override

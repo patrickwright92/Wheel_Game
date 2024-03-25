@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -14,39 +13,29 @@ import view.interfaces.GameEngineCallback;
 
 public class GameEngineImpl implements GameEngine {
 	
-	//setup java logging using properties file google - configure log property file (oracle - using the jre logging configuration file)
-	
-	public GameEngineImpl() {
-		
-		//TODO returning hex because I do not have a toString method
-	}
-	 
-	
 	private List<Player> players = new ArrayList<>();
 	private List<GameEngineCallback> gameEngineCallbacks = new ArrayList<>();
 	private Collection<Slot> slots = new ArrayList<>();
-	
+
+	public GameEngineImpl() {
+		
+	}
 
 	@Override
 	public void spin(int initialDelay, int finalDelay, int delayIncrement) {
 		
 		for(int i = initialDelay; i <= finalDelay+1; i+=delayIncrement) {
-			// debug code System.out.println(i);
-			//delay goes to 101 at the moment
 			try {
 				Thread.sleep(i);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-		}
-	
-		
+		}	
 	}
 
 	@Override
 	public void calculateResult(Slot winningSlot) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -64,57 +53,69 @@ public class GameEngineImpl implements GameEngine {
 
 	@Override
 	public Player getPlayer(String id) {
-		//idValue initializer
-		Player idValue = null;
-		//check to see if String id matches any Player id
 		for (Player p : players) {
-			if (id.equals(p)) {
-		//if match set idValue to Player id		
-				idValue = p;
+			if (p.getPlayerId().equals(id)) {
+				return p;
 			}
 		}
-		//return Player id, if match was not found return null
-		return idValue;
-		
+		System.out.println("Player not found GetPlayer method");
+		return null;
 	}
 
 	@Override
 	public boolean removePlayer(Player player) {
 		for (Player p : players) {
 			if (player.equals(p)) {
-				players.remove(p);	
+				players.remove(p);
+				System.out.println("Player removed");
+				return true;	
 			}	
 		}
-		return true;
+		System.out.println("Player not found");
+		return false;
 	}
 
 	@Override
 	public void addGameEngineCallback(GameEngineCallback gameEngineCallback) {
-		//i need a loop to iterate through callbacks - unsure at this stage what it means
-		/* if i need to validate
 		for (GameEngineCallback g : gameEngineCallbacks) {
-			
-		} */
+			if (g.equals(gameEngineCallback)) {
+				return;
+			}
+		} 
 		gameEngineCallbacks.add(gameEngineCallback);
-		
+		System.out.println("GameEngineCallback added");
 	}
 
 	@Override
 	public boolean removeGameEngineCallback(GameEngineCallback gameEngineCallback) {
-		//basic code need to further implement
-		gameEngineCallbacks.remove(gameEngineCallback);
-		return true;
+		for (GameEngineCallback g : gameEngineCallbacks) {
+			if(g.equals(gameEngineCallback)) {
+				gameEngineCallbacks.remove(gameEngineCallback);
+				System.out.println("GameEngineCallback removed");
+				return true;
+			}
+		}
+		System.out.println("GameEngineCallback not found");
+		return false;
 	}
 
 	@Override
 	public Collection<Player> getAllPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		return players;
 	}
 
 	@Override
 	public boolean placeBet(Player player, int bet, BetType betType) {
-		// TODO Auto-generated method stub
+		// If the player exists, place the bet
+		for (Player p : players) {
+			if (p.getPlayerId().equals(player.getPlayerId())) {
+				player.setBetType(betType);
+				player.setBet(bet);
+				System.out.println("Player Bet Type and Amount set");
+				return true;
+			}
+		}
+		System.out.println("Player does not exist PlaceBet method");
 		return false;
 	}
 
@@ -137,7 +138,6 @@ public class GameEngineImpl implements GameEngine {
 			SlotImpl slot = new SlotImpl(i, color, slotNumber[i]);
 			slots.add(slot);		
 		}
-		
 		return slots;
 	}
 	
